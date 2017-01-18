@@ -31,9 +31,11 @@ public class JooqDemoApplication implements CommandLineRunner {
 	}
 
 	private void init() {
+
 		this.context.deleteFrom(CUSTOMER);
 
-		Stream.of("a", "b", "c", "d", "e").forEach(name -> this.context
+		Stream.of("a", "b", "c", "d", "e")
+				.forEach(name -> this.context
 				.insertInto(CUSTOMER)
 				.columns(CUSTOMER.EMAIL)
 				.values(name + "@email.com")
