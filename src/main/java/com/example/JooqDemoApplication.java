@@ -44,22 +44,16 @@ public class JooqDemoApplication implements CommandLineRunner {
 				.from(Customer.CUSTOMER)
 				.stream()
 				.forEach(cr -> {
-
 					Long customerId = cr.into(Customer.CUSTOMER.ID).value1();
-
-					int rand = new Random().nextInt(10);
-
 					Collection<Query> products =
 							IntStream
-									.range(1, rand)
+									.range(1, new Random().nextInt(10))
 									.mapToObj(i -> this.context
 											.insertInto(PRODUCT)
 											.columns(PRODUCT.CUSTOMER_ID, PRODUCT.SKU)
 											.values(customerId, "sku" + customerId))
 									.collect(Collectors.toList());
-
 					this.context.batch(products).execute();
-
 				});
 	}
 
